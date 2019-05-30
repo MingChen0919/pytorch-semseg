@@ -7,6 +7,15 @@ class unet(nn.Module):
     def __init__(
         self, feature_scale=4, n_classes=21, is_deconv=True, in_channels=3, is_batchnorm=True
     ):
+        """
+        # Define each layers of the neural network.
+
+        :param feature_scale:
+        :param n_classes:
+        :param is_deconv:
+        :param in_channels:
+        :param is_batchnorm:
+        """
         super(unet, self).__init__()
         self.is_deconv = is_deconv
         self.in_channels = in_channels
@@ -39,8 +48,17 @@ class unet(nn.Module):
 
         # final conv (without any concat)
         self.final = nn.Conv2d(filters[0], n_classes, 1)
+        # the output shape should be [batch_size, n_classes, H, W], where H is image height and W is image width
 
     def forward(self, inputs):
+        """
+        Implement the forward process – input values go through each layer and return an output which becomes the
+        input of next layer.
+
+        :param inputs:
+        :return:
+        """
+
         conv1 = self.conv1(inputs)
         maxpool1 = self.maxpool1(conv1)
 
